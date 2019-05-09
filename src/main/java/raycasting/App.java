@@ -9,7 +9,8 @@ import java.awt.Color;
 public class App {
     GraphicsConsole gc = new GraphicsConsole(800, 600, "Raycasting Demo");
 
-    Boundary b;
+    Boundary wall;
+    Ray ray;
 
     public static void main(String[] args) {
         new App();
@@ -22,7 +23,8 @@ public class App {
         gc.setBackgroundColor(Color.black);
         
         /* Create boundaries and rays */
-        b = new Boundary(gc, 300, 100, 100, 300);
+        wall = new Boundary(gc, 300, 100, 300, 300);
+        ray = new Ray(gc, 100, 200);
 
         /* Draw */
 
@@ -30,7 +32,8 @@ public class App {
             synchronized (gc) {
                 gc.clear();
 
-                b.show();
+                wall.show();
+                ray.show();
             }
             gc.sleep(2);
         }
