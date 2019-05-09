@@ -13,8 +13,6 @@ import java.util.List;
 public class App {
     GraphicsConsole gc = new GraphicsConsole(800, 600, "Raycasting Demo");
     Random rand = new Random();
-
-    Boundary wall;
     Ray ray;
 
     // Boundary[] walls;
@@ -31,8 +29,7 @@ public class App {
         gc.setBackgroundColor(Color.black);
 
         /* Create boundaries and rays */
-        wall = new Boundary(gc, 300, 100, 300, 300);
-        ray = new Ray(gc, 100, 200);
+        ray = new Ray(gc, 100, 200, 0);
 
         setup();
 
@@ -40,7 +37,7 @@ public class App {
         while (true) {
             synchronized (gc) {
                 gc.clear();
-
+                ray.show();
                 draw();
             }
             gc.sleep(2);

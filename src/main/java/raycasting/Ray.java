@@ -12,11 +12,15 @@ public class Ray {
     Point dir;
     Point rawdir;
 
-    public Ray(GraphicsConsole gc, int x, int y) {
+    public Ray(GraphicsConsole gc, int x, int y, int angle) {
         this.gc = gc;
         this.pos = new Point(x, y);
         this.rawdir = new Point(0, 1);
-        this.dir = new Point(0, 1);
+        this.dir = fromAngle(angle, 1);
+    }
+
+    public Point fromAngle(int angle, int length){
+        return new Point((int)(length * Math.cos(angle)) + 100, (int)(length * Math.sin(angle)));
     }
 
     public void lookAt(int x, int y) {
