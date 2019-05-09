@@ -5,12 +5,20 @@ package raycasting;
 
 import hsa2.GraphicsConsole;
 import java.awt.Color;
+import java.util.Random;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class App {
     GraphicsConsole gc = new GraphicsConsole(800, 600, "Raycasting Demo");
+    Random rand = new Random();
 
     Boundary wall;
     Ray ray;
+
+    // Boundary[] walls;
+    List<Boundary> walls = new ArrayList<>();
 
     public static void main(String[] args) {
         new App();
@@ -21,21 +29,45 @@ public class App {
         gc.setLocationRelativeTo(null);
         gc.setAntiAlias(true);
         gc.setBackgroundColor(Color.black);
-        
+
         /* Create boundaries and rays */
         wall = new Boundary(gc, 300, 100, 300, 300);
         ray = new Ray(gc, 100, 200);
 
-        /* Draw */
+        setup();
 
+        /* Draw */
         while (true) {
             synchronized (gc) {
                 gc.clear();
 
-                wall.show();
-                ray.show();
+                draw();
             }
             gc.sleep(2);
         }
+    }
+    
+    private void setup() {
+        for (int i = 0; i < 5; i++) {
+            int x1 = rand.nextInt(gc.getDrawWidth());
+            int x2 = rand.nextInt(gc.getDrawWidth());
+
+            int y1 = rand.nextInt(gc.getDrawHeight());
+            int y2 = rand.nextInt(gc.getDrawHeight());
+
+            walls.add(new Boundary(gc, x1, y1, x2, y2));
+        }
+
+        walls.add(new Boundary(gc, 0, 0, gc.getDrawWidth(), 0));
+        walls.add(new Boundary(gc, gc.getDrawWidth(), 0, gc.getDrawWidth(), gc.getDrawHeight()));
+        walls.add(new Boundary(gc, gc.getDrawWidth() - 1, gc.getDrawHeight(), 0, gc.getDrawHeight()));
+        walls.add(new Boundary(gc, 0, gc.getDrawHeight() - 1, 0, 0));
+    }
+    
+    private void draw() {
+        for (Boundary x : walls) {
+            x.show();
+        }
+
     }
 }
